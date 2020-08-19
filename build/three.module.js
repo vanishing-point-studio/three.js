@@ -20383,15 +20383,15 @@ function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
 			const light = lights[ i ];
 			const shadow = light.shadow;
 
-			if ( shadow.autoUpdate === false && shadow.needsUpdate === false ) continue;
-
 			if ( shadow === undefined ) {
 
-				console.warn( 'THREE.WebGLShadowMap:', light, 'has no shadow.' );
+			//	console.warn( 'THREE.WebGLShadowMap:', light, 'has no shadow.' );
 				continue;
 
 			}
 
+			if ( shadow.autoUpdate === false && shadow.needsUpdate === false ) continue;
+			
 			_shadowMapSize.copy( shadow.mapSize );
 
 			const shadowFrameExtents = shadow.getFrameExtents();
