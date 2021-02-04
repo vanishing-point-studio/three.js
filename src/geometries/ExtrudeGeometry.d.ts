@@ -2,7 +2,6 @@ import { Curve } from './../extras/core/Curve';
 import { Vector2 } from './../math/Vector2';
 import { Vector3 } from './../math/Vector3';
 import { Shape } from './../extras/core/Shape';
-import { Geometry } from './../core/Geometry';
 import { BufferGeometry } from './../core/BufferGeometry';
 
 export interface ExtrudeGeometryOptions {
@@ -41,14 +40,14 @@ export interface ExtrudeGeometryOptions {
 
 export interface UVGenerator {
 	generateTopUV(
-		geometry: ExtrudeBufferGeometry,
+		geometry: ExtrudeGeometry,
 		vertices: number[],
 		indexA: number,
 		indexB: number,
 		indexC: number
 	): Vector2[];
 	generateSideWallUV(
-		geometry: ExtrudeBufferGeometry,
+		geometry: ExtrudeGeometry,
 		vertices: number[],
 		indexA: number,
 		indexB: number,
@@ -57,27 +56,9 @@ export interface UVGenerator {
 	): Vector2[];
 }
 
-export class ExtrudeBufferGeometry extends BufferGeometry {
+export class ExtrudeGeometry extends BufferGeometry {
 
 	constructor( shapes: Shape | Shape[], options?: ExtrudeGeometryOptions );
-
-	static WorldUVGenerator: UVGenerator;
-
-	/**
-	 * @default 'ExtrudeBufferGeometry'
-	 */
-	type: string;
-
-	addShapeList( shapes: Shape[], options?: any ): void;
-	addShape( shape: Shape, options?: any ): void;
-
-}
-
-export class ExtrudeGeometry extends Geometry {
-
-	constructor( shapes: Shape | Shape[], options?: ExtrudeGeometryOptions );
-
-	static WorldUVGenerator: UVGenerator;
 
 	/**
 	 * @default 'ExtrudeGeometry'
@@ -88,3 +69,5 @@ export class ExtrudeGeometry extends Geometry {
 	addShape( shape: Shape, options?: any ): void;
 
 }
+
+export { ExtrudeGeometry as ExtrudeBufferGeometry };

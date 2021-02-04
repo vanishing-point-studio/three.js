@@ -22,7 +22,7 @@ export class CanvasTexture extends Texture {
 	 * @param [encoding=THREE.LinearEncoding]
 	 */
 	constructor(
-		canvas: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
+		canvas: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap,
 		mapping?: Mapping,
 		wrapS?: Wrapping,
 		wrapT?: Wrapping,
@@ -32,5 +32,7 @@ export class CanvasTexture extends Texture {
 		type?: TextureDataType,
 		anisotropy?: number
 	);
+
+	readonly isCanvasTexture: true;
 
 }

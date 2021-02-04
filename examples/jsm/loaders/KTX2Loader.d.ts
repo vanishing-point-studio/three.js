@@ -9,15 +9,10 @@ export class KTX2Loader extends CompressedTextureLoader {
 
 	constructor( manager?: LoadingManager );
 
+	setTranscoderPath( path: string ): KTX2Loader;
+	setWorkerLimit( limit: number ): KTX2Loader;
 	detectSupport( renderer: WebGLRenderer ): KTX2Loader;
-	initModule(): void;
-
-	load(
-		url: string,
-		onLoad: ( texture: CompressedTexture ) => void,
-		onProgress?: ( event: ProgressEvent ) => void,
-		onError?: ( event: ErrorEvent ) => void
-	): CompressedTexture;
+	dispose(): KTX2Loader;
 
 	parse(
 		buffer: ArrayBuffer,

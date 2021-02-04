@@ -1,22 +1,4 @@
-import {
-	PolyhedronGeometry,
-	PolyhedronBufferGeometry,
-} from './PolyhedronGeometry';
-
-export class IcosahedronBufferGeometry extends PolyhedronBufferGeometry {
-
-	/**
-	 * @param [radius=1]
-	 * @param [detail=0]
-	 */
-	constructor( radius?: number, detail?: number );
-
-	/**
-	 * @default 'IcosahedronBufferGeometry'
-	 */
-	type: string;
-
-}
+import { PolyhedronGeometry } from './PolyhedronGeometry';
 
 export class IcosahedronGeometry extends PolyhedronGeometry {
 
@@ -32,3 +14,5 @@ export class IcosahedronGeometry extends PolyhedronGeometry {
 	type: string;
 
 }
+
+export { IcosahedronGeometry as IcosahedronBufferGeometry };

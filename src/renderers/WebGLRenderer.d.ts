@@ -17,9 +17,9 @@ import { Material } from './../materials/Material';
 import { ToneMapping, ShadowMapType, CullFace, TextureEncoding } from '../constants';
 import { WebXRManager } from '../renderers/webxr/WebXRManager';
 import { RenderTarget } from './webgl/WebGLRenderLists';
-import { Geometry } from './../core/Geometry';
 import { BufferGeometry } from './../core/BufferGeometry';
 import { Texture } from '../textures/Texture';
+import { XRAnimationLoopCallback } from './webxr/WebXR';
 
 export interface Renderer {
 	domElement: HTMLCanvasElement;
@@ -85,6 +85,12 @@ export interface WebGLRendererParameters {
 	 * default is false.
 	 */
 	logarithmicDepthBuffer?: boolean;
+
+	/**
+	 * default is false.
+	 */
+	failIfMajorPerformanceCaveat?: boolean;
+
 }
 
 export interface WebGLDebug {
@@ -100,7 +106,7 @@ export interface WebGLDebug {
  * The WebGL renderer displays your beautifully crafted scenes using WebGL, if your device supports it.
  * This renderer has way better performance than CanvasRenderer.
  *
- * @see {@link https://github.com/mrdoob/three.js/blob/master/src/renderers/WebGLRenderer.js|src/renderers/WebGLRenderer.js}
+ * see {@link https://github.com/mrdoob/three.js/blob/master/src/renderers/WebGLRenderer.js|src/renderers/WebGLRenderer.js}
  */
 export class WebGLRenderer implements Renderer {
 
@@ -189,11 +195,6 @@ export class WebGLRenderer implements Renderer {
 	 * @default 1
 	 */
 	toneMappingExposure: number;
-
-	/**
-	 * @default false
-	 */
-	shadowMapDebug: boolean;
 
 	/**
 	 * @default 8
@@ -294,7 +295,7 @@ export class WebGLRenderer implements Renderer {
 	/**
 	 * Returns a THREE.Color instance with the current clear color.
 	 */
-	getClearColor(): Color;
+	getClearColor( target: Color ): Color;
 
 	/**
 	 * Sets the clear color, using color for the color and alpha for the opacity.
@@ -338,7 +339,7 @@ export class WebGLRenderer implements Renderer {
 	renderBufferDirect(
 		camera: Camera,
 		scene: Scene,
-		geometry: Geometry | BufferGeometry,
+		geometry: BufferGeometry,
 		material: Material,
 		object: Object3D,
 		geometryGroup: any
@@ -348,7 +349,7 @@ export class WebGLRenderer implements Renderer {
 	 * A build in function that can be used instead of requestAnimationFrame. For WebXR projects this function must be used.
 	 * @param callback The function will be called every available frame. If `null` is passed it will stop any already ongoing animation.
 	 */
-	setAnimationLoop( callback: Function | null ): void;
+	setAnimationLoop( callback: XRAnimationLoopCallback | null ): void;
 
 	/**
 	 * @deprecated Use {@link WebGLRenderer#setAnimationLoop .setAnimationLoop()} instead.
@@ -452,6 +453,11 @@ export class WebGLRenderer implements Renderer {
 	 * @param texture The texture to Initialize.
 	 */
 	initTexture( texture: Texture ): void;
+
+	/**
+	 * Can be used to reset the internal WebGL state.
+	 */
+	resetState(): void;
 
 	/**
 	 * @deprecated
