@@ -15207,7 +15207,7 @@
 				var shadow = light.shadow;
 
 				if (shadow === undefined) {
-					console.warn('THREE.WebGLShadowMap:', light, 'has no shadow.');
+				//	console.warn('THREE.WebGLShadowMap:', light, 'has no shadow.');
 					continue;
 				}
 
